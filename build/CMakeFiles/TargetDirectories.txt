@@ -1,0 +1,10 @@
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/CMakeFiles/edit_cache.dir
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/CMakeFiles/rebuild_cache.dir
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/CMakeFiles/edit_cache.dir
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/CMakeFiles/rebuild_cache.dir
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/client/CMakeFiles/client.dir
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/client/CMakeFiles/edit_cache.dir
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/client/CMakeFiles/rebuild_cache.dir
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/server/CMakeFiles/server.dir
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/server/CMakeFiles/edit_cache.dir
+/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/server/CMakeFiles/rebuild_cache.dir

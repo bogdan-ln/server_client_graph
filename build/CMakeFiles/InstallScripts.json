@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/bogdanshamray/Documents/c++/labs/lab_4/build/cmake_install.cmake",
+		"/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/cmake_install.cmake",
+		"/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/client/cmake_install.cmake",
+		"/Users/bogdanshamray/Documents/c++/labs/lab_4/build/main/server/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
