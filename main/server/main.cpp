@@ -1,6 +1,4 @@
-#include <iostream>
-#include <memory>
-#include "graph_server.h"
+#include "libraries.h"
 
 int main() {
     try {
@@ -12,4 +10,5 @@ int main() {
         return 1;
     }
     return 0;
+    // .gitignore 
 }

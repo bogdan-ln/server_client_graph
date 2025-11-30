@@ -1,11 +1,4 @@
-#include <vector>
-#include <string> 
-#include "graph_server.h"
-#include "graph.hpp"
-#include "boost/asio.hpp"
-#include <fstream>
-#include <iostream>
-#include <istream> 
+#include "libraries.h"
 
 Server::Server (int port) 
     :accept_(io_context_, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port))
@@ -25,7 +18,8 @@ void Server::run() {
         if (stoped) {
             break;
         }
-        client(std::move(socket));
+        client(static_cast<boost::asio::ip::tcp::socket &&>(socket));
+        socket.close();
     }
 }
 
@@ -49,45 +43,36 @@ std::vector<std::pair<double, double>> Server::read_data(std::string filename){
     }
     return data;
 }
-
-void Server::send_message(boost::asio::ip::tcp::socket& socket, std::string message){
-    boost::asio::write(socket , boost::asio::buffer(message + "\n"));
+std::string Server::reading_message(boost::asio::ip::tcp::socket& socket){
+    boost::asio::streambuf buffer;
+    boost::asio::read_until(socket, buffer, '\n');
+    std::string command;
+    std::istream input(&buffer);
+    std::getline(input, command);
+    return command;
 }
 
-void Server::send_graph(boost::asio::ip::tcp::socket& socket, std::vector<std::pair<double, double>> data){
-    try{
-        std::vector<double> x;
-        std::vector<double> y ;
-        x.reserve(data.size());
-        y.reserve(data.size());
-        int len = data.size();
-        for(const auto& point : data) {
-            x.push_back(point.first);
-            y.push_back(point.second);
-        }
-        Graph g;
-        // g.label = "График зависимости x, y";
-        g.graph(x,y);
-        g.show(-1);
-    }catch( const std::exception&e){
-        std::cout <<"ошибка при отображении графика"<<e.what() << std::endl;
-    }
+void Server::send_len(boost::asio::ip::tcp::socket& socket, size_t len){
+    boost::asio::write(socket, boost::asio::buffer(&len, sizeof(len)));
+}
+
+void Server::send_data(boost::asio::ip::tcp::socket& socket, std::vector<std::pair<double, double>> data){
+    size_t len = data.size();
+    boost::asio::write(socket, boost::asio::buffer(data.data(), len * sizeof(std::pair<double, double>)));
 }
 
 void Server::client(boost::asio::ip::tcp::socket socket){
-    boost::asio::streambuf buffer;
-    boost::asio::read_until(socket, buffer, '\n');
-    std::istream input(&buffer);
-    std::string command;
-    std::getline(input, command);
-    std::cout << "Получена команда: '" << command << "'" << std::endl;
-    if (command == "show_graph") { 
+    std::string command_1 = reading_message(socket);
+    std::cout << "Получена команда: '" << command_1 << "'" << std::endl;
+    if (command_1== "a") {                                                  //enum class
         std::vector<std::pair<double, double>> data = read_data("input.txt");
-        send_graph(socket, data);
-        std::cout <<"Графи котправлен"<<std::endl;
+        send_len(socket, data.size());
+        std::cout << "Отправлена длинна"<< std::endl;
+        std::string command_2 = reading_message(socket);
+
+        if(command_2 == "d"){
+            send_data(socket, data);
+        }
     }
-    else {
-        send_message(socket, "непонятная команда, надо исспользовать show_graph");
-    }
-    socket.shutdown(boost::asio::ip::tcp::socket::shutdown_send);
+    //socket.shutdown(boost::asio::ip::tcp::socket::shutdown_send);
 }

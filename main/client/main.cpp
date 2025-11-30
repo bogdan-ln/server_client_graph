@@ -1,6 +1,4 @@
-#include <iostream>
-#include <string>
-#include "graph_client.h"
+#include "libraries.h"
 
 int main() {
     Client client;
