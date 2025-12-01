@@ -64,7 +64,7 @@ void Server::send_data(boost::asio::ip::tcp::socket& socket, std::vector<std::pa
 void Server::client(boost::asio::ip::tcp::socket socket){
     std::string command_1 = reading_message(socket);
     std::cout << "Получена команда: '" << command_1 << "'" << std::endl;
-    if (command_1== "a") {                                                  //enum class
+    if (command_1== "show_graph") {                                                  //enum class
         std::vector<std::pair<double, double>> data = read_data("input.txt");
         send_len(socket, data.size());
         std::cout << "Отправлена длинна"<< std::endl;

@@ -13,7 +13,7 @@ void Client::connect(){
     );
     socket_.connect(ep);
     std::string command;
-    std::getline(std::cin, command);
+    std::getline(std::cin, command); 
     command += "\n";
     boost::asio::write(socket_, boost::asio::buffer(command));
     go(std::move(socket_));
