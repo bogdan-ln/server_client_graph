@@ -36,7 +36,7 @@ std::vector<std::pair<double,double>> Client::make_arr(boost::asio::ip::tcp::soc
     return data;
 }
 
-void Client::make_graph(std::vector<std::pair<double, double>> data){
+void Client::make_graph(const std::vector<std::pair<double, double>>& data){
     std::vector<double> x;
     std::vector<double> y ;
     x.reserve(data.size());

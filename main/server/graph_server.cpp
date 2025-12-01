@@ -56,7 +56,7 @@ void Server::send_len(boost::asio::ip::tcp::socket& socket, size_t len){
     boost::asio::write(socket, boost::asio::buffer(&len, sizeof(len)));
 }
 
-void Server::send_data(boost::asio::ip::tcp::socket& socket, std::vector<std::pair<double, double>> data){
+void Server::send_data(boost::asio::ip::tcp::socket& socket,const std::vector<std::pair<double, double>>& data){
     size_t len = data.size();
     boost::asio::write(socket, boost::asio::buffer(data.data(), len * sizeof(std::pair<double, double>)));
 }
